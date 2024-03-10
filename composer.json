@@ -1,12 +1,12 @@
 {
-    "name": "ibecsystems/admin-kit-docs",
+    "name": "ibecsystems/admin-kit-scramble",
     "description": "Automatic generation of API documentation for Laravel applications.",
     "keywords": [
         "laravel",
         "documentation",
         "openapi"
     ],
-    "homepage": "https://github.com/ibecsystems/admin-kit-docs",
+    "homepage": "https://github.com/ibecsystems/admin-kit-scramble",
     "license": "MIT",
     "authors": [
         {
