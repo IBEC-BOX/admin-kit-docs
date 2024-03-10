@@ -1,17 +1,22 @@
 {
-    "name": "dedoc/scramble",
+    "name": "ibecsystems/admin-kit-docs",
     "description": "Automatic generation of API documentation for Laravel applications.",
     "keywords": [
         "laravel",
         "documentation",
         "openapi"
     ],
-    "homepage": "https://github.com/dedoc/scramble",
+    "homepage": "https://github.com/ibecsystems/admin-kit-docs",
     "license": "MIT",
     "authors": [
         {
             "name": "Roman Lytvynenko",
             "email": "litvinenko95@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Dauren Kambarov",
+            "email": "dkambarov17@gmail.com",
             "role": "Developer"
         }
     ],
