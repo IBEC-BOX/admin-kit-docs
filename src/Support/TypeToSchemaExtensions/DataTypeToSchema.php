@@ -54,6 +54,12 @@ class DataTypeToSchema extends TypeToSchemaExtension
     protected function transformPropertyToOpenApiType(ReflectionProperty $property): Types\Type
     {
         $type = $property->getType();
+
+        if (!$type) {
+            return (new Types\StringType())
+                ->nullable(true);
+        }
+
         $typeName = $type->getName();
 
         if ($typeName === 'string') {

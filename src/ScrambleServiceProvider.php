@@ -10,6 +10,8 @@ use Dedoc\Scramble\Infer\Extensions\ExtensionsBroker;
 use Dedoc\Scramble\Infer\Extensions\InferExtension;
 use Dedoc\Scramble\Infer\Scope\Index;
 use Dedoc\Scramble\Infer\Services\FileParser;
+use Dedoc\Scramble\Support\InferExtensions\DataCreationInfer;
+use Dedoc\Scramble\Support\TypeToSchemaExtensions\DataCollectionTypeToSchema;
 use Dedoc\Scramble\Support\TypeToSchemaExtensions\DataTypeToSchema;
 use Dedoc\Scramble\Support\ExceptionToResponseExtensions\AuthorizationExceptionToResponseExtension;
 use Dedoc\Scramble\Support\ExceptionToResponseExtensions\HttpExceptionToResponseExtension;
@@ -90,10 +92,12 @@ class ScrambleServiceProvider extends PackageServiceProvider
                         new ValidatorTypeInfer(),
                         new ResourceCollectionTypeInfer(),
                         new ResponseFactoryTypeInfer(),
+
+                        new DataCreationInfer(),
                     ],
                     array_map(function ($class) {
                         return app($class);
-                    }, $inferExtensionsClasses)
+                    }, $inferExtensionsClasses),
                 );
             });
 
@@ -143,6 +147,7 @@ class ScrambleServiceProvider extends PackageServiceProvider
                     LengthAwarePaginatorTypeToSchema::class,
                     ResponseTypeToSchema::class,
                     DataTypeToSchema::class,
+                    DataCollectionTypeToSchema::class,
                 ]),
                 array_merge($exceptionToResponseExtensions, [
                     ValidationExceptionToResponseExtension::class,
