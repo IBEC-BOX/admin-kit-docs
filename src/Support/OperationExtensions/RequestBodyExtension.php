@@ -8,6 +8,7 @@ use Dedoc\Scramble\Support\Generator\Parameter;
 use Dedoc\Scramble\Support\Generator\RequestBodyObject;
 use Dedoc\Scramble\Support\Generator\Schema;
 use Dedoc\Scramble\Support\Generator\Types\ObjectType;
+use Dedoc\Scramble\Support\OperationExtensions\RulesExtractor\DataRulesExtractor;
 use Dedoc\Scramble\Support\OperationExtensions\RulesExtractor\FormRequestRulesExtractor;
 use Dedoc\Scramble\Support\OperationExtensions\RulesExtractor\RulesToParameters;
 use Dedoc\Scramble\Support\OperationExtensions\RulesExtractor\ValidateCallExtractor;
@@ -112,6 +113,12 @@ class RequestBodyExtension extends OperationExtension
             if ($validateCallRules = $validateCallExtractor->extract()) {
                 $rules = array_merge($rules, $validateCallRules);
                 $nodesResults[] = $validateCallExtractor->node();
+            }
+        }
+
+        if (($dataRulesExtractor = new DataRulesExtractor($methodNode))->shouldHandle()) {
+            if (count($dataRules = $dataRulesExtractor->extract())) {
+                $rules = array_merge($rules, $dataRules);
             }
         }
 
