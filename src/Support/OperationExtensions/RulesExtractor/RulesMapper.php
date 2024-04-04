@@ -13,6 +13,7 @@ use Dedoc\Scramble\Support\Generator\TypeTransformer;
 use Dedoc\Scramble\Support\Type\ObjectType;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Illuminate\Validation\NestedRules;
 use Illuminate\Validation\Rules\Enum;
 
 class RulesMapper
@@ -170,5 +171,23 @@ class RulesMapper
         }
 
         return $type->format('binary');
+    }
+
+    public function nestedRules(Type $type, NestedRules $rule)
+    {
+        $nested = $rule->compile('', [], []);
+
+        $rules = collect($nested->rules)->flatMap(fn ($value, $key) => [
+            ltrim($key, '.') => $value
+        ]);
+
+        $object = (new \Dedoc\Scramble\Support\Generator\Types\ObjectType())
+            ->setRequired($rules->keys()->toArray());
+
+        foreach ($rules as $key => $rule) {
+            $object->addProperty($key, new UnknownType);
+        }
+
+        return $object;
     }
 }
